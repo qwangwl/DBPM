@@ -1,0 +1,1 @@
+The code for *models.PMEEG*, *Trainers.PMTrainer*, *Trainers.SSTSPMTrainer*, and *dataset\_utils* related to the paper **"Fine-Grained Label Propagation via Density-Based Prototype Matching for Cross-Subject EEG Emotion Recognition"** will be released upon the paper's official publication.
