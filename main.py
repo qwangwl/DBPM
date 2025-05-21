@@ -34,7 +34,7 @@ def setup_seed(seed):  ## setup the random seed
 
 def weight_init(m):  ## model parameter intialization
     if isinstance(m, nn.Conv2d):
-        nn.init.xavier_uniform_(m.weight.data)
+        nn.init.xavier_uniform_(m.weight.data)w
         nn.init.constant_(m.bias.data, 0.3)
     elif isinstance(m, nn.BatchNorm2d):
         m.weight.data.fill_(1)
