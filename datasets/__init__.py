@@ -1,0 +1,3 @@
+from datasets.seed_feature import SEEDFeatureDataset
+from datasets.seediv_feature import SEEDIVFeatureDataset
+from datasets.deap import DEAPDataset
