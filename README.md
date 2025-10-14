@@ -1,78 +1,132 @@
+
+
 # Fine-Grained Label Propagation via Density-Based Prototype Matching for Cross-Subject EEG Emotion Recognition
 
-This repository contains a **PyTorch implementation** of the paper:
+[English](./README.md) | [简体中文](./README_zh.md)
 
-*Fine-Grained Label Propagation via Density-Based Prototype Matching for Cross-Subject EEG Emotion Recognition*.
+This repository is the official PyTorch implementation of the paper "Fine-Grained Label Propagation via Density-Based Prototype Matching for Cross-Subject EEG Emotion Recognition".
 
-It provides a full pipeline for EEG emotion recognition, including **cross-subject and cross-dataset experiments**. 
+## File Structure
 
-## Code Organization
+```
+.
+├── configs/
+│   └── dbpm.yaml           # Hyperparameter configuration file for the model and training
+├── datasets/
+│   └── seed_feature.py     # SEED dataset loader
+│   └── seediv_feature.py   # SEED-IV dataset loader
+├── loss_funcs/
+│   └── transfer_losses.py  # Loss functions used in the project
+├── models/
+│   └── DBPM.py             # Definition of the DBPM model
+├── trainers/
+│   └── DBPMTrainer.py      # Logic for model training, validation, and testing
+├── utils/
+|   └── _build_loader.py    # Helper functions for dataloader and DBSCAN-Based Cluster capturing
+│   └── _get_datasets.py    # Helper functions for data processing
+│   └── _get_models.py      # Helper functions for model definition
+|   └── utils.py            # Other utility functions
+├── cross_subject.py        # Entry point for cross-subject experiments
+├── cross_dataset.py        # Entry point for cross-dataset experiments
+├── analysis.ipynb          # Visualization and analysis of experimental results
+├── requirements.txt        # Environment dependencies
+└── README.md
+```
 
-- **`dataloaders/`** — EEG data preprocessing and DataLoader construction.  
-- **`datasets/`** — Functions to read SEED, SEED-IV, and other EEG datasets.  
-- **`dataset_utils.py`** — Utilities for dataset handling, clustering, and label mapping.  
-- **`models/`** — Network.  
-- **`loss_funcs/`** — Loss functions.  
-- **`trainers/`** — Training.  
-- **`runs/`** — Example scripts to reproduce experiments on different datasets.  
-- **`main.py`** — Entry point for training.  
-- **`a_draft/`** — Exploratory code for hyperparameter search and preliminary experiments.
+## Prerequisites
 
-## Installation
+Before you begin, please ensure you have the following environment and dependencies installed:
 
-1. Clone this repository:
+- Python (>= 3.12)
+- PyTorch (>= 2.8.0)
+- Scikit-learn
+- NumPy
 
-```bash
-git clone https://github.com/qwangwl/DBPM
-cd DBPM
-````
+You can install all required dependencies using pip (this may include some unnecessary packages):
 
-2. Install required dependencies:
-
-```bash
+```
 pip install -r requirements.txt
 ```
 
-## Usage
+## How to Use
 
-### Default Execution
+### 1. Data Preparation
 
-Running `python main.py` directly will execute an experiment based on the default parameters set in `config.py` (which are typically configured for the Session 1 of the SEED dataset):
+This project supports the SEED and SEED-IV datasets. Please download the datasets first, then modify the `seed4_path` and `seed3_path` parameters in the configuration file `configs/dbpm.yaml` to point to the correct data paths on your local machine.
 
-```bash
-python main.py
+Example `configs/dbpm.yaml` content:
+
+```
+# ...other parameters...
+seed4_path: "/path/to/your/SEED-IV/eeg_raw_data"
+seed3_path: "/path/to/your/SEED/Preprocessed_EEG"
+# ...other parameters...
 ```
 
-### Running More Datasets and Specifying Parameters
+### 2. Running Experiments
 
-If you wish to run different datasets or specify experimental parameters, please refer to the specialized run scripts located in the `runs` directory. To run experiments for a specific dataset, please check and use the corresponding `runs/run_{dataset_name}.py` file.
+#### Cross-Subject Experiments
 
-For example, if you want to run experiments on a dataset, you would likely execute a command similar to the following (refer to the respective run_*.py file for the exact command):
+To run cross-subject experiments, execute the `cross_subject.py` script. This script will train and evaluate the model according to the configuration file. You need to specify the dataset name (`dataset_name`) and session (`session`) via command-line arguments.
 
-```bash
-python runs/run_seed.py  # Example for running the SEED dataset
-python runs/run_deap.py  # Example for running the DEAP dataset
+```
+python cross_subject.py --dataset_name <dataset_name> --session <session>
 ```
 
-### Warning
+- `<dataset_name>`: `seed3` or `seed4`.
+- `<session>`: The session for the experiment, typically `1`, `2`, or `3`.
 
-**Please note:** When running different experimental scenarios (e.g., different datasets or cross-dataset evaluations), certain revisions to the core code may be required:
+For example, to run an experiment on the first session of the SEED dataset:
 
-1.  **For Different Datasets:** When running a dataset like **DEAP**, you will need to revise the description (or definition) of the **number of targets** within `main.py` to match the dataset's characteristics.
-2.  **For Cross-Dataset Experiments:** When performing cross-dataset analysis, the **entry point** of the program within `main.py` will likely need to be revised to accommodate the loading and processing of multiple datasets.
+```
+python cross_subject.py --dataset_name seed3 --session 1
+```
 
-## Citation
+#### Cross-Dataset Experiments
 
-If you use this code in your research, please cite the original paper:
-```bibtex
-@article{Wang2025An,
-  title={An Emotion Recognition Framework via Cross-modal Alignment of EEG and Eye Movement Data},
-  author={Qi Wang and others},
-  journal={arXiv preprint arXiv:2509.04938},
-  year={2025}
+To run cross-dataset experiments, execute the `cross_dataset.py` script directly. Specify the source and target datasets via command-line arguments.
+
+```
+python cross_dataset.py --source_dataset <source_dataset> --target_dataset <target_dataset>
+```
+
+- `<source_dataset>`: The name of the source domain dataset (e.g., `seed3`, `seed4`).
+- `<target_dataset>`: The name of the target domain dataset (e.g., `seed3`, `seed4`).
+
+For example, to run an experiment using SEED-IV as the source domain and SEED as the target domain:
+
+```
+python cross_dataset.py --source_dataset seed4 --target_dataset seed3
+```
+
+#### One-Click Script for All Experiments
+
+In many cases, you may want to run all experiments at once to obtain the final results. You can refer to the scripts in the `runs/` directory to do this.
+
+**Important Note**: Before running the batch scripts, you need to make a critical modification to the `cross_subject.py` file. Please find and **comment out** the definition of `tmp_saved_path` to ensure that the results of each experiment are saved correctly and independently, preventing them from being accidentally overwritten.
+
+For example, find the following code in `cross_subject.py` and comment it out:
+
+```
+tmp_saved_path = f"logs\\{args.dataset_name}_{args.session}_{args.emotion}\\{args.ablation}"
+setattr(args, "tmp_saved_path", tmp_saved_path)
+```
+
+## How to Cite
+
+If you use the code or methods from this repository in your research, please cite our paper:
+
+```
+@article{your_citation_key,
+  title={Fine-Grained Label Propagation via Density-Based Prototype Matching for Cross-Subject EEG Emotion Recognition},
+  author={Author 1, Author 2, and Author 3},
+  journal={Journal Name},
+  year={Year},
+  volume={Volume},
+  pages={Pages}
 }
 ```
 
------
+## Contact
 
-*This README was generated with the assistance of Google Gemini.*
+If you have any questions, feel free to open an issue on GitHub or contact us directly.
