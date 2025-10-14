@@ -51,7 +51,6 @@ class LMMDLoss(MMDLoss, LambdaSheduler):
 
         # Pseudo label
         target_label = target_logits.cpu().data.max(1)[1].numpy()
-
         target_logits = target_logits.cpu().data.numpy()
         target_logits_sum = np.sum(target_logits, axis=0).reshape(1, self.num_class)
         target_logits_sum[target_logits_sum == 0] = 100

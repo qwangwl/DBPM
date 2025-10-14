@@ -1,0 +1,21 @@
+seed: 20
+
+n_epochs: 1000
+max_iter: 1000
+early_stop: 0
+
+lr: 5e-5
+weight_decay: 1e-5
+
+transfer_loss_type: "dann"
+
+saved_model: False
+
+batch_size: 96
+
+seed3_path: "E:\\EEG_DataSets\\SEED\\ExtractedFeatures\\"
+seed4_path: "E:\\EEG_DataSets\\SEED_IV\\eeg_feature_smooth\\"
+
+# DBPM
+pre_epochs: 14
+pl_weight: 0.011

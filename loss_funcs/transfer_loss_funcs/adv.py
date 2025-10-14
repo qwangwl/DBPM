@@ -35,11 +35,9 @@ class AdversarialLoss(nn.Module):
         if self.use_lambda_scheduler:
             lamb = self.lambda_scheduler.lamb()
             self.lambda_scheduler.step()
+        return self.get_adversarial_result(source, target, lamb)
 
-        return self.get_adversarial_result_by_prpl(source, target, lamb)
-
-    def get_adversarial_result_by_prpl(self, source, target, lamb):
-        # Forked from https://github.com/KAZABANA/PR-PL
+    def get_adversarial_result(self, source, target, lamb):
         f = ReverseLayerF.apply(torch.cat((source, target), dim=0), lamb)
         d = self.domain_classifier(f)
         d_s, d_t = d.chunk(2, dim=0)
@@ -47,19 +45,6 @@ class AdversarialLoss(nn.Module):
         d_label_t = torch.zeros((target.size(0), 1)).to(target.device)
         loss_fn = nn.BCELoss(reduction="mean")
         return 0.5 * (loss_fn(d_s, d_label_s) + loss_fn(d_t, d_label_t))
-    
-    def get_adversarial_result(self, x, source=True, lamb=1.0):
-        # Forked from 
-        x = ReverseLayerF.apply(x, lamb)
-        domain_pred = self.domain_classifier(x)
-        device = domain_pred.device
-        if source:
-            domain_label = torch.ones(len(x), 1).long()
-        else:
-            domain_label = torch.zeros(len(x), 1).long()
-        loss_fn = nn.BCELoss(reduction="mean")
-        loss_adv = loss_fn(domain_pred, domain_label.float().to(device))
-        return loss_adv
     
 class ReverseLayerF(Function):
     @staticmethod

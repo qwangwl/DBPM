@@ -2,7 +2,7 @@
 '''
 file       :transfer_losses.py
 Date       :2024/08/04 11:29:28
-Author     :qwangwl
+Author     :qwangxdu
 '''
 
 import torch
@@ -12,7 +12,7 @@ from loss_funcs.transfer_loss_funcs import *
 class TransferLoss(nn.Module):
     def __init__(self, loss_type, **kwargs):
         super(TransferLoss, self).__init__()
-
+        # lmmd seems to have some problems, so it is not included 
         if loss_type == "dann":
             self.loss_func = AdversarialLoss(**kwargs)
         elif loss_type == "mmd":
