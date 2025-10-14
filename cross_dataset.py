@@ -122,17 +122,14 @@ def main_for_cross_dataset(args):
 if __name__ == "__main__":
     parser = get_parser()
     args = parser.parse_args()
-    # 3 to 4
-    setattr(args, "source_dataset", "seed3")
-    setattr(args, "target_dataset", "seed4")
-    # 4 to 3
-    # setattr(args, "source_dataset", "seed4")
-    # setattr(args, "target_dataset", "seed3")
+
     setattr(args, "num_classes", 3)
     setattr(args, "num_of_subjects", 45) # three sessions
     setattr(args, "feature_dim", 310)
 
     setattr(args, "device", torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
+
     tmp_saved_path = f"logs\\cross_dataset\\{args.source_dataset}_to_{args.target_dataset}\\"
     setattr(args, "tmp_saved_path", tmp_saved_path)
+    
     main_for_cross_dataset(args)

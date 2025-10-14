@@ -51,4 +51,7 @@ def get_parser():
     
     parser.add_argument("--ablation", type=str, default="DBPM", help="Ablation study for DBPM")
 
+    parser.add_argument("--source_dataset", type=str, default="seed3", help="source dataset")
+    parser.add_argument("--target_dataset", type=str, default="seed4", help="target dataset")
+
     return parser   
