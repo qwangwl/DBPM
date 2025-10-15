@@ -33,6 +33,11 @@ This repository is the official PyTorch implementation of the paper "Fine-Graine
 └── README.md
 ```
 
+**Note:**
+
+This is a clean implementation of DBPM. If you want to explore more about parameter analysis or other experiments, please switch to the draft branch, which contains all the code generated throughout the research process (un-refactored).
+
+
 ## Prerequisites
 
 Before you begin, please ensure you have the following environment and dependencies installed:
