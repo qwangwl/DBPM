@@ -14,7 +14,6 @@ for ablation in ablation_styles:
         tmp_saved_path = f"logs\\{dataset_name}_{sess}_none\\{ablation}"
         command = (
             f"python cross_subject.py "
-            f"--config configs/dbpm.yaml "
             f"--tmp_saved_path {tmp_saved_path} "
             f"--dataset_name {dataset_name} "
             f"--session {sess} "
@@ -30,7 +29,6 @@ for ablation in ablation_styles:
         tmp_saved_path = f"logs\\{dataset_name}_{sess}_none\\{ablation}"
         command = (
             f"python cross_subject.py "
-            f"--config configs/dbpm.yaml "
             f"--tmp_saved_path {tmp_saved_path} "
             f"--dataset_name {dataset_name} "
             f"--session {sess} "

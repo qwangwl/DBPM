@@ -8,9 +8,9 @@ def get_parser():
         config_file_parser_class=configargparse.YAMLConfigFileParser,
         formatter_class=configargparse.ArgumentDefaultsHelpFormatter,
     )
-    parser.add_argument('--config', is_config_file=True, help='config file path')
+    parser.add_argument('--config', is_config_file=True, default="configs\\dbpm.yaml", help='config file path')
 
-    parser.add_argument("--seed", type=int, default=20, help="随机种子")
+    parser.add_argument("--seed", type=int, default=20)
     parser.add_argument('--num_workers', type=int, default=0)
 
     parser.add_argument('--batch_size', type=int, default=96)
@@ -29,20 +29,14 @@ def get_parser():
     parser.add_argument('--transfer_loss_weight', type=float, default=1)
     parser.add_argument('--transfer_loss_type', type=str, default='dann')
 
-    parser.add_argument('--dataset_name', type=str, default="seed3", help="数据集")
-    parser.add_argument('--session', type=int, default=1, help="定义此次训练的session")
+    parser.add_argument('--dataset_name', type=str, default="seed3")
+    parser.add_argument('--session', type=int, default=1)
     parser.add_argument("--seed3_path", type=str, default = "E:\\EEG_DataSets\\SEED\\ExtractedFeatures\\")
     parser.add_argument("--seed4_path", type=str, default = "E:\\EEG_DataSets\\SEED_IV\\eeg_feature_smooth\\")
-    parser.add_argument("--deap_path", type=str, default = "E:\\EEG_DataSets\\DEAP")
-    
-    parser.add_argument("--emotion", type=str, default="none")
-    parser.add_argument("--feature_name", type=str, default="de")
-    parser.add_argument("--window_sec", type=int, default=1)
-    parser.add_argument("--step_sec", type=int, default=1)
 
-    parser.add_argument('--saved_model', type=str2bool, default=False, help="当前训练过程是否存储模型")
+    parser.add_argument('--saved_model', type=str2bool, default=False)
     current_date = datetime.now().strftime("%m%d")
-    parser.add_argument("--tmp_saved_path", type=str, default=f"E:\\EEG\\logs\\default\\{current_date}\\")
+    parser.add_argument("--tmp_saved_path", type=str, default=f".\\logs\\default\\{current_date}\\")
 
     parser.add_argument("--eps", type=float, default=1)
     parser.add_argument("--min_samples", type=int, default=5)
