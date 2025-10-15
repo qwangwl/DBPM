@@ -6,6 +6,8 @@
 
 This repository is the official PyTorch implementation of the paper "Fine-Grained Label Propagation via Density-Based Prototype Matching for Cross-Subject EEG Emotion Recognition".
 
+[Paper Link](https://www.sciencedirect.com/science/article/pii/S0950705125016892)
+
 ## File Structure
 
 ```
@@ -122,13 +124,15 @@ setattr(args, "tmp_saved_path", tmp_saved_path)
 If you use the code or methods from this repository in your research, please cite our paper:
 
 ```
-@article{your_citation_key,
-  title={Fine-Grained Label Propagation via Density-Based Prototype Matching for Cross-Subject EEG Emotion Recognition},
-  author={Author 1, Author 2, and Author 3},
-  journal={Journal Name},
-  year={Year},
-  volume={Volume},
-  pages={Pages}
+@article{wang2025dbpm,
+title = {Fine-Grained Label Propagation via Density-Based Prototype Matching for Cross-Subject EEG Emotion Recognition},
+author = {Qiang Wang and Liying Yang and Qian Zhang and Jingtao Du and Yumeng Ye}
+journal = {Knowledge-Based Systems},
+pages = {114650},
+year = {2025},
+issn = {0950-7051},
+doi = {https://doi.org/10.1016/j.knosys.2025.114650},
+publisher={Elsevier}
 }
 ```
 

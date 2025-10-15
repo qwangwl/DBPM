@@ -4,6 +4,8 @@
 
 本仓库是论文《Fine-Grained Label Propagation via Density-Based Prototype Matching for Cross-Subject EEG Emotion Recognition》的官方 PyTorch 实现。
 
+[论文地址](https://www.sciencedirect.com/science/article/pii/S0950705125016892)
+
 ## 文件结构
 
 ```
@@ -122,13 +124,15 @@ python cross_dataset.py --source_dataset seed4 --target_dataset seed3
 如果您在您的研究中使用了本仓库的代码或方法，请引用我们的论文：
 
 ```
-@article{your_citation_key,
-  title={Fine-Grained Label Propagation via Density-Based Prototype Matching for Cross-Subject EEG Emotion Recognition},
-  author={作者1, 作者2, and 作者3},
-  journal={期刊名},
-  year={年份},
-  volume={卷号},
-  pages={页码}
+@article{wang2025dbpm,
+title = {Fine-Grained Label Propagation via Density-Based Prototype Matching for Cross-Subject EEG Emotion Recognition},
+author = {Qiang Wang and Liying Yang and Qian Zhang and Jingtao Du and Yumeng Ye}
+journal = {Knowledge-Based Systems},
+pages = {114650},
+year = {2025},
+issn = {0950-7051},
+doi = {https://doi.org/10.1016/j.knosys.2025.114650},
+publisher={Elsevier}
 }
 ```
 
