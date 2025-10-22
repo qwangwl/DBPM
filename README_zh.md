@@ -128,6 +128,7 @@ python cross_dataset.py --source_dataset seed4 --target_dataset seed3
 title = {Fine-Grained Label Propagation via Density-Based Prototype Matching for Cross-Subject EEG Emotion Recognition},
 author = {Qiang Wang and Liying Yang and Qian Zhang and Jingtao Du and Yumeng Ye}
 journal = {Knowledge-Based Systems},
+volume = {330},
 pages = {114650},
 year = {2025},
 issn = {0950-7051},
