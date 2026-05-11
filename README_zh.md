@@ -33,9 +33,6 @@
 └── README.md
 ```
 
-**注意:**
-这是一个纯净版的DBPM实现，如果你想要了解更过关于参数分析等其他实验，请切换至`draft`分支，该分支保留了整个研究产生的所有代码（未经重构）。
-
 ## 环境要求
 
 在开始之前，请确保您已安装以下环境和依赖项：
@@ -61,7 +58,7 @@ pip install -r requirements.txt
 
 ```
 # ...其他参数...
-seed4_path: "/path/to/your/SEED-IV/eeg_raw_data"
+seed4_path: "/path/to/your/SEED_IV/eeg_feature_smooth"
 seed3_path: "/path/to/your/SEED/Preprocessed_EEG"
 # ...其他参数...
 ```
@@ -85,6 +82,12 @@ python cross_subject.py --dataset_name <dataset_name> --session <session>
 
 ```
 python cross_subject.py --dataset_name seed4 --session 1
+```
+
+由于SEED和SEED-IV的默认学习率不同，运行SEED-IV时请指定学习率，例如：
+
+```
+python cross_subject.py --dataset_name seed4 --session 1 --lr 1e-3
 ```
 
 #### 跨数据集实验
@@ -115,7 +118,7 @@ python cross_dataset.py --source_dataset seed4 --target_dataset seed3
 如，在 `cross_subject.py` 中找到类似下面的代码并将其注释：
 
 ```
-    tmp_saved_path = f"logs\\{args.dataset_name}_{args.session}_{args.emotion}\\{args.ablation}"
+    tmp_saved_path = f"logs\\{args.dataset_name}_{args.session}\\{args.ablation}"
     setattr(args, "tmp_saved_path", tmp_saved_path)
 ```
 

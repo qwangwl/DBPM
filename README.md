@@ -35,11 +35,6 @@ This repository is the official PyTorch implementation of the paper "Fine-Graine
 └── README.md
 ```
 
-**Note:**
-
-This is a clean implementation of DBPM. If you want to explore more about parameter analysis or other experiments, please switch to the draft branch, which contains all the code generated throughout the research process (un-refactored).
-
-
 ## Prerequisites
 
 Before you begin, please ensure you have the following environment and dependencies installed:
@@ -65,7 +60,7 @@ Example `configs/dbpm.yaml` content:
 
 ```
 # ...other parameters...
-seed4_path: "/path/to/your/SEED-IV/eeg_raw_data"
+seed4_path: "/path/to/your/SEED_IV/eeg_feature_smooth"
 seed3_path: "/path/to/your/SEED/Preprocessed_EEG"
 # ...other parameters...
 ```
@@ -88,6 +83,13 @@ For example, to run an experiment on the first session of the SEED dataset:
 ```
 python cross_subject.py --dataset_name seed3 --session 1
 ```
+
+Because the default learning rates for SEED and SEED-IV are different, when running SEED-IV, please specify the learning rate, for example:
+
+```
+python cross_subject.py --dataset_name seed4 --session 1 --lr 1e-3
+```
+
 
 #### Cross-Dataset Experiments
 
